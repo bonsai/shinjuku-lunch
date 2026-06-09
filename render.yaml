@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: shinjuku-lunch-api
+    env: docker
+    repo: https://github.com/0501jp/shinjuku-lunch
+    dockerfilePath: ./api/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shinjuku-lunch-db
+          property: connectionString
+      - key: PORT
+        value: "8080"
+
+  - type: web
+    name: shinjuku-lunch-frontend
+    env: node
+    repo: https://github.com/0501jp/shinjuku-lunch
+    rootDir: frontend
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          name: shinjuku-lunch-api
+          type: web
+          property: host
+
+databases:
+  - name: shinjuku-lunch-db
+    databaseName: shinjuku_lunch
+    region: singapore
+    plan: free

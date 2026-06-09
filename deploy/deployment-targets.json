@@ -1,0 +1,128 @@
+{
+  "$schema": "./deployment-targets-schema.json",
+  "project": "shinjuku-lunch",
+  "tech": {
+    "language": "Go 1.26",
+    "framework": "chi/v5",
+    "db": ["Neon (PG)", "MSSQL", "SQLite", "seed.json"],
+    "port": 8080,
+    "dockerfile": "api/Dockerfile"
+  },
+  "targets": [
+    {
+      "name": "Render",
+      "type": "PaaS (Web Service)",
+      "url": "https://render.com",
+      "free_tier": true,
+      "cost": "Free tier: 750 hrs/mo, 512MB RAM, sleeps after 15min idle",
+      "build": {
+        "method": "Dockerfile or Native Go build",
+        "build_command": null,
+        "start_command": "./server",
+        "health_check_path": "/api/areas"
+      },
+      "env_vars": {
+        "PORT": { "value": "8080", "auto": true },
+        "DATABASE_URL": { "hint": "Neon connection string or empty (seed.json fallback)" }
+      },
+      "db_option": "Neon (Render Blueprint → add PostgreSQL sidecar or external Neon)",
+      "deploy_method": "GitHub repo connect → Auto-deploy on push → SSH auth: Render manages deploy keys",
+      "pros": ["Simplest setup", "Free tier generous", "Auto-deploy from GitHub"],
+      "cons": ["Sleeps on idle (cold start ~5s)", "Free tier no custom domain"],
+      "notes": "Best first choice. Dockerfile ready. No DB = seed.json mode."
+    },
+    {
+      "name": "Fly.io",
+      "type": "PaaS (micro-VM with Firecracker)",
+      "url": "https://fly.io",
+      "free_tier": true,
+      "cost": "Free tier: 3 shared-cpu-1x 256MB VMs, 3GB persisted volume (for SQLite)",
+      "build": {
+        "method": "Dockerfile or flyctl buildpacks",
+        "fly_toml": true,
+        "start_command": "./server",
+        "health_check_path": "/api/areas"
+      },
+      "env_vars": {
+        "PORT": { "value": "8080", "auto": true },
+        "DATABASE_URL": { "hint": "Neon or SQLite path like sqlite:///data/shinjuku_lunch.db" }
+      },
+      "db_option": "SQLite on persisted volume (3GB free) or Neon external",
+      "deploy_method": "flyctl launch → GitHub Actions (or manual fly deploy) → SSH via flyctl auth",
+      "pros": ["Persistent volume for SQLite", "Global regions (low latency)", "Generous free tier"],
+      "cons": ["Requires flyctl CLI setup", "Learning curve"],
+      "notes": "Best if you want SQLite in production. Volume persists across redeploys."
+    },
+    {
+      "name": "Railway",
+      "type": "PaaS",
+      "url": "https://railway.app",
+      "free_tier": true,
+      "cost": "Free tier: $5 credit/mo (roughly 500 hrs), no sleep",
+      "build": {
+        "method": "Dockerfile or Nixpacks auto-detect",
+        "start_command": null,
+        "health_check_path": "/api/areas"
+      },
+      "env_vars": {
+        "PORT": { "value": "8080", "auto": true },
+        "DATABASE_URL": { "hint": "Neon or Railway PG plugin" }
+      },
+      "db_option": "Railway PostgreSQL plugin (free with limits) or external Neon",
+      "deploy_method": "GitHub repo connect → Auto-deploy → SSH: Railway handles deploy keys",
+      "pros": ["Simple GitHub connect", "No sleep on free tier", "Built-in PG plugin"],
+      "cons": ["Free credit runs out", "Less transparent pricing"],
+      "notes": "Good middle ground. No sleep means always-on."
+    },
+    {
+      "name": "Google Cloud Run",
+      "type": "Serverless container",
+      "url": "https://cloud.run",
+      "free_tier": true,
+      "cost": "Free tier: 2M requests/mo, 360K vCPU-sec/mo, 1GB egress/mo",
+      "build": {
+        "method": "Dockerfile → Artifact Registry → Cloud Run",
+        "start_command": null,
+        "health_check_path": "/api/areas",
+        "min_instances": 0,
+        "max_instances": 1
+      },
+      "env_vars": {
+        "PORT": { "value": "8080", "auto": true },
+        "DATABASE_URL": { "hint": "Neon (Cloud Run can't persist SQLite)" }
+      },
+      "db_option": "Neon only (ephemeral filesystem, no SQLite persistence)",
+      "deploy_method": "gcloud CLI or Cloud Build GitHub trigger → SSH not needed",
+      "pros": ["Auto-scales to 0 (no cost when idle)", "Managed SSL/domain"],
+      "cons": ["No persistent filesystem (no SQLite)", "Cold start latency if min=0"],
+      "notes": "Only viable with Neon. Best for production at scale."
+    }
+  ],
+  "recommendation": {
+    "primary": "Render",
+    "reason": "Dockerfile ready, free tier sufficient, zero-config GitHub deploy",
+    "with_sqlite": "Fly.io",
+    "with_neon": "Render or Railway"
+  },
+  "ssh_setup": {
+    "shared_pc_note": "共有PCなので ssh-keygen にパスフレーズを設定し、エージェントのタイムアウトを短めに。または GitHub CLI (gh auth login) でブラウザ認証が安全。",
+    "options": [
+      {
+        "method": "gh auth login (Recommended for shared PC)",
+        "command": "gh auth login",
+        "note": "ブラウザ認証。ログアウトも簡単 (gh auth logout)。キーをPCに残さない。"
+      },
+      {
+        "method": "SSH key with passphrase",
+        "command": "ssh-keygen -t ed25519 -C \"shinjuku-lunch-deploy\"",
+        "note": "パスフレーズ必須。エージェントに ssh-add -t 3600 で1h制限。"
+      }
+    ]
+  },
+  "todo": [
+    "Choose target → create account → connect GitHub repo",
+    "Set DATABASE_URL env var (or leave empty for seed.json)",
+    "If using seed.json: update Dockerfile to COPY --from=... neon/seed.json or embed via embed.FS",
+    "If using SQLite on Fly.io: add fly.toml with [mounts] and SQLite volume"
+  ]
+}

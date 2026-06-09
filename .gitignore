@@ -1,0 +1,9 @@
+.env
+vendor/
+api/server
+*.exe
+*~
+node_modules/
+.next/
+frontend/out/
+tmp/

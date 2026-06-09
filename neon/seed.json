@@ -1,0 +1,209 @@
+{
+  "areas": [
+    {"name": "歌舞伎町"},
+    {"name": "大久保"},
+    {"name": "西新宿"},
+    {"name": "新宿三丁目"},
+    {"name": "新宿"}
+  ],
+  "genres": [
+    {"name": "韓国料理"},
+    {"name": "タイ料理"},
+    {"name": "和食"},
+    {"name": "インド料理"},
+    {"name": "アジア料理"},
+    {"name": "カレー"},
+    {"name": "牛丼"},
+    {"name": "トルコ料理"},
+    {"name": "焼肉"}
+  ],
+  "restaurants": [
+    {
+      "name": "TOP トッポギ",
+      "area": "歌舞伎町",
+      "genre": "韓国料理",
+      "station": "西武新宿駅",
+      "notes": "韓国料理"
+    },
+    {
+      "name": "トルコケバブ屋台",
+      "area": "歌舞伎町",
+      "genre": "トルコ料理",
+      "station": "新宿駅",
+      "notes": "安い ¥390"
+    },
+    {
+      "name": "焼肉 ナンバーワン",
+      "area": "歌舞伎町",
+      "genre": "焼肉",
+      "station": "新宿駅",
+      "notes": "¥600"
+    },
+    {
+      "name": "バンタイ",
+      "area": "歌舞伎町",
+      "genre": "タイ料理",
+      "address": "歌舞伎町1-23-14 第一メトロビル3F",
+      "station": "西武新宿駅",
+      "walk_min": 2,
+      "latitude": 35.6958,
+      "longitude": 139.7012,
+      "business_hours": "月~金 11:30~23:00 / 土日祝 11:30~23:00",
+      "url_tabelog": "https://tabelog.com/tokyo/A1304/A130401/13000085/",
+      "notes": "1986年創業 タイ・セレクト認定 食べログ3.60 百名店"
+    },
+    {
+      "name": "サームロット",
+      "area": "歌舞伎町",
+      "genre": "タイ料理",
+      "address": "歌舞伎町1-2-19 三権ビル2F",
+      "station": "西武新宿駅",
+      "walk_min": 6,
+      "latitude": 35.697,
+      "longitude": 139.7035,
+      "business_hours": "11:30~24:00",
+      "url_tabelog": "https://tabelog.com/tokyo/A1304/A130401/13223381/",
+      "notes": "タイ・ベトナム料理 食べログ3.48"
+    },
+    {
+      "name": "ゲウチャイ 新宿店",
+      "area": "歌舞伎町",
+      "genre": "タイ料理",
+      "address": "新宿3-21-7 東新ビル2F",
+      "station": "西武新宿駅",
+      "walk_min": 7,
+      "latitude": 35.693,
+      "longitude": 139.703,
+      "business_hours": "11:00~22:00（月曜定休）",
+      "notes": "タイ直送スパイス 食べログ3.48"
+    },
+    {
+      "name": "ランブータン",
+      "area": "歌舞伎町",
+      "genre": "タイ料理",
+      "address": "新宿3-26-13 新宿中村屋ビル7F",
+      "station": "西武新宿駅",
+      "walk_min": 7,
+      "latitude": 35.6915,
+      "longitude": 139.7018,
+      "notes": "食べログ3.49"
+    },
+    {
+      "name": "バンコクスパイス 新宿店",
+      "area": "歌舞伎町",
+      "genre": "タイ料理",
+      "address": "西新宿1-14-4 小黒ビル1F",
+      "station": "西武新宿駅",
+      "walk_min": 8,
+      "latitude": 35.692,
+      "longitude": 139.6965,
+      "business_hours": "11:30~22:00",
+      "notes": "タイ人シェフ 食べログ3.49"
+    },
+    {
+      "name": "モモタイ",
+      "area": "歌舞伎町",
+      "genre": "タイ料理",
+      "address": "新宿2-16-3 第三宏和ビル1F",
+      "station": "新宿三丁目駅",
+      "walk_min": 8,
+      "latitude": 35.6925,
+      "longitude": 139.706,
+      "business_hours": "24時間",
+      "notes": "食べログ3.53 24h"
+    },
+    {
+      "name": "チャオサイゴン パリバール",
+      "area": "歌舞伎町",
+      "genre": "アジア料理",
+      "station": "西武新宿駅",
+      "walk_min": 1,
+      "notes": "多国籍アジア料理 ¥1,000~¥2,000"
+    },
+    {
+      "name": "マサラステーション",
+      "area": "歌舞伎町",
+      "genre": "インド料理",
+      "station": "新宿駅",
+      "notes": "カレー2種+ナン/ライス食べ放題 ¥1,000~¥1,500"
+    },
+    {
+      "name": "でじにらんど 大久保店",
+      "area": "大久保",
+      "genre": "韓国料理",
+      "station": "大久保駅",
+      "walk_min": 0,
+      "business_hours": "平日 11:00~15:00",
+      "url_hotpepper": "https://www.hotpepper.jp/strJ000963498/lunch/",
+      "notes": "日替わりランチ ¥660 ライスおかわり自由"
+    },
+    {
+      "name": "うま煮や",
+      "area": "大久保",
+      "genre": "和食",
+      "station": "大久保駅",
+      "walk_min": 2,
+      "business_hours": "11:30~14:00LO 日曜定休",
+      "notes": "豚ロース西京焼き定食 ¥700 ご飯おかわり自由"
+    },
+    {
+      "name": "ハレルヤ 新宿本店",
+      "area": "大久保",
+      "genre": "韓国料理",
+      "station": "新大久保駅",
+      "walk_min": 5,
+      "business_hours": "ランチ 11:30~15:00",
+      "url_tabelog": "https://tabelog.com/tokyo/A1304/A130404/13000016/",
+      "notes": "1977年創業 純豆腐チゲ定食 ¥500 豚カルビ丼 ¥500"
+    },
+    {
+      "name": "小さなカレー家",
+      "area": "大久保",
+      "genre": "カレー",
+      "station": "大久保駅",
+      "walk_min": 1,
+      "business_hours": "月~金 11:00~14:00（売切れ次第終了） 土日定休",
+      "url_tabelog": "https://tabelog.com/tokyo/A1304/A130404/13048031/",
+      "notes": "牛すじカレー ¥950 カレー百名店2024 食べログ3.75"
+    },
+    {
+      "name": "すき家 大久保二丁目店",
+      "area": "大久保",
+      "genre": "牛丼",
+      "station": "大久保駅",
+      "walk_min": 1,
+      "business_hours": "24時間",
+      "url_tabelog": "https://www.sukiya.jp/menu/",
+      "notes": "牛丼並 ¥450"
+    }
+  ],
+  "lunch_logs": [
+    {
+      "restaurant": "トルコケバブ屋台",
+      "menu": "ケバブ",
+      "price": 390,
+      "rating": 3,
+      "comment": "安い",
+      "revisit": true,
+      "visited_date": "2026-05-13"
+    },
+    {
+      "restaurant": "焼肉 ナンバーワン",
+      "menu": "焼肉",
+      "price": 600,
+      "rating": 4,
+      "comment": "コスパ良し",
+      "revisit": true,
+      "visited_date": "2026-05-13"
+    },
+    {
+      "restaurant": "TOP トッポギ",
+      "menu": "トッポギ",
+      "price": 800,
+      "rating": 3,
+      "comment": "韓国料理",
+      "revisit": false,
+      "visited_date": "2026-05-13"
+    }
+  ]
+}

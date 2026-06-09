@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deployment Targets",
+  "description": "デプロイ先候補の情報を保持する設定ファイル",
+  "type": "object",
+  "required": ["project", "tech", "targets"],
+  "properties": {
+    "project": { "type": "string", "description": "プロジェクト名" },
+    "tech": {
+      "type": "object",
+      "description": "プロジェクトの技術スタック概要",
+      "properties": {
+        "language": { "type": "string" },
+        "framework": { "type": "string" },
+        "db": { "type": "array", "items": { "type": "string" } },
+        "port": { "type": "integer" },
+        "dockerfile": { "type": "string" }
+      }
+    },
+    "targets": {
+      "type": "array",
+      "description": "デプロイ先候補のリスト",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "free_tier"],
+        "properties": {
+          "name": { "type": "string", "description": "PaaS名" },
+          "type": { "type": "string", "description": "サービス種別" },
+          "url": { "type": "string", "format": "uri" },
+          "free_tier": { "type": "boolean" },
+          "cost": { "type": "string" },
+          "build": {
+            "type": "object",
+            "properties": {
+              "method": { "type": "string" },
+              "start_command": { "type": ["string", "null"] },
+              "health_check_path": { "type": "string" }
+            }
+          },
+          "env_vars": { "type": "object" },
+          "db_option": { "type": "string" },
+          "deploy_method": { "type": "string" },
+          "pros": { "type": "array", "items": { "type": "string" } },
+          "cons": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "recommendation": {
+      "type": "object",
+      "properties": {
+        "primary": { "type": "string" },
+        "reason": { "type": "string" },
+        "with_sqlite": { "type": "string" },
+        "with_neon": { "type": "string" }
+      }
+    },
+    "todo": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

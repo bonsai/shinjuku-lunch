@@ -1,0 +1,177 @@
+openapi: "3.1.0"
+info:
+  title: 新宿ランチナビ API
+  version: "1.0.0"
+  description: |
+    認証不要・匿名投稿可能な新宿エリアランチ情報API。
+    Go (net/http) + Neon (PostgreSQL) で構成。
+
+servers:
+  - url: https://lunch-api.example.com
+    description: 本番
+  - url: http://localhost:8080
+    description: 開発
+
+paths:
+  /api/restaurants:
+    get:
+      summary: 店舗一覧
+      description: エリア・ジャンル・価格上限でフィルタ可能
+      parameters:
+        - name: area
+          in: query
+          schema: { type: string }
+          description: エリア名（歌舞伎町 / 大久保 / 新宿三丁目 / …）
+        - name: genre
+          in: query
+          schema: { type: string }
+          description: ジャンル名（韓国料理 / タイ料理 / 和食 / …）
+        - name: price_max
+          in: query
+          schema: { type: integer }
+          description: 価格上限（円）
+      responses:
+        "200":
+          description: 店舗リスト
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Restaurant"
+
+  /api/restaurants/{id}:
+    get:
+      summary: 店舗詳細
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: 店舗情報 + 紐づくランチログ
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Restaurant"
+                  - type: object
+                    properties:
+                      logs:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/LunchLog"
+        "404":
+          description: 店舗が見つかりません
+
+  /api/lunch-logs:
+    get:
+      summary: ランチログ一覧
+      parameters:
+        - name: restaurant_id
+          in: query
+          schema: { type: integer }
+          description: 特定店舗のログのみ
+      responses:
+        "200":
+          description: ログリスト
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LunchLog"
+    post:
+      summary: ランチログを投稿（匿名）
+      description: 認証不要。誰でも投稿可能。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LunchLogInput"
+      responses:
+        "201":
+          description: 作成成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LunchLog"
+        "400":
+          description: バリデーションエラー
+
+  /api/areas:
+    get:
+      summary: エリア一覧
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: { type: integer }
+                    name: { type: string }
+
+  /api/genres:
+    get:
+      summary: ジャンル一覧
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: { type: integer }
+                    name: { type: string }
+
+components:
+  schemas:
+    Restaurant:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        area: { type: string }
+        genre: { type: string }
+        address: { type: string }
+        station: { type: string }
+        walk_min: { type: integer }
+        latitude: { type: number, format: double }
+        longitude: { type: number, format: double }
+        business_hours: { type: string }
+        url_tabelog: { type: string }
+        url_hotpepper: { type: string }
+        notes: { type: string }
+        created_at: { type: string, format: date-time }
+
+    LunchLog:
+      type: object
+      properties:
+        id: { type: integer }
+        restaurant_id: { type: integer }
+        menu: { type: string }
+        price: { type: integer }
+        rating: { type: integer, minimum: 1, maximum: 5 }
+        comment: { type: string }
+        revisit: { type: boolean }
+        visited_date: { type: string, format: date }
+        created_at: { type: string, format: date-time }
+
+    LunchLogInput:
+      type: object
+      required: [restaurant_id, menu, price, rating]
+      properties:
+        restaurant_id: { type: integer }
+        menu: { type: string, maxLength: 200 }
+        price: { type: integer, minimum: 0 }
+        rating: { type: integer, minimum: 1, maximum: 5 }
+        comment: { type: string, maxLength: 500 }
+        revisit: { type: boolean, default: false }
+        visited_date: { type: string, format: date }
