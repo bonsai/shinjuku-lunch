@@ -36,7 +36,7 @@ export default function RestaurantList({ initialRestaurants, areas, genres }: Pr
       ) : restaurants.length === 0 ? (
         <div className="text-center py-12 text-zinc-500">該当する店舗がありません</div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
           {restaurants.map((r) => (
             <RestaurantCard key={r.id} r={r} />
           ))}

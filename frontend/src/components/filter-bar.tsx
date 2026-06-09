@@ -23,13 +23,13 @@ export default function FilterBar({ areas, genres, onChange }: Props) {
   }, [area, genre, priceMax, onChange])
 
   return (
-    <div className="flex flex-wrap gap-3 items-end">
-      <div className="flex flex-col gap-1">
+    <div className="flex flex-wrap gap-2 sm:gap-3 items-end">
+      <div className="flex flex-col gap-1 flex-1 min-w-0 sm:flex-none">
         <label className="text-xs text-zinc-400 font-medium">エリア</label>
         <select
           value={area}
           onChange={(e) => { setArea(e.target.value); setTimeout(apply, 0) }}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white"
+          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white w-full sm:w-auto"
         >
           <option value="">すべて</option>
           {areas.map((a) => (
@@ -37,12 +37,12 @@ export default function FilterBar({ areas, genres, onChange }: Props) {
           ))}
         </select>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 flex-1 min-w-0 sm:flex-none">
         <label className="text-xs text-zinc-400 font-medium">ジャンル</label>
         <select
           value={genre}
           onChange={(e) => { setGenre(e.target.value); setTimeout(apply, 0) }}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white"
+          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white w-full sm:w-auto"
         >
           <option value="">すべて</option>
           {genres.map((g) => (
@@ -50,19 +50,19 @@ export default function FilterBar({ areas, genres, onChange }: Props) {
           ))}
         </select>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 flex-1 min-w-0 sm:flex-none">
         <label className="text-xs text-zinc-400 font-medium">価格上限</label>
         <input
           type="number"
           placeholder="例: 1000"
           value={priceMax}
           onChange={(e) => setPriceMax(e.target.value)}
-          className="w-28 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white"
+          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white w-full sm:w-28"
         />
       </div>
       <button
         onClick={apply}
-        className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 transition-colors"
+        className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 active:bg-blue-400 transition-colors touch-manipulation w-full sm:w-auto"
       >
         絞り込み
       </button>
