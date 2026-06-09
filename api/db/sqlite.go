@@ -62,8 +62,8 @@ func initSQLiteSchema() {
 			address TEXT, station TEXT, walk_min INTEGER,
 			latitude REAL, longitude REAL,
 			business_hours TEXT, url_tabelog TEXT, url_hotpepper TEXT, notes TEXT,
-			created_at TEXT DEFAULT (datetime('now')),
-			updated_at TEXT DEFAULT (datetime('now')))`,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+			updated_at DATETIME DEFAULT CURRENT_TIMESTAMP)`,
 		`CREATE TABLE IF NOT EXISTS lunch_logs (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			restaurant_id INTEGER REFERENCES restaurants(id),
@@ -73,7 +73,7 @@ func initSQLiteSchema() {
 			comment TEXT,
 			revisit INTEGER DEFAULT 0,
 			visited_date TEXT DEFAULT (date('now')),
-			created_at TEXT DEFAULT (datetime('now')))`,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`,
 	}
 	for _, q := range queries {
 		if _, err := DB.Exec(q); err != nil {
