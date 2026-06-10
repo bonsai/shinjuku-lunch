@@ -243,5 +243,15 @@
     "url_tabelog": "https://www.sukiya.jp/menu/",
     "notes": "牛丼並 ¥450",
     "created_at": "2026-06-01T00:00:00Z"
+  },
+  {
+    "id": 17,
+    "name": "白龍館",
+    "area": "新宿",
+    "genre": "カレー",
+    "area_id": 5,
+    "genre_id": 6,
+    "notes": "キーマカレー ¥500",
+    "created_at": "2026-06-01T00:00:00Z"
   }
 ]
