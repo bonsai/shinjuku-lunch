@@ -1,10 +1,11 @@
-import { getRestaurants, getAreas, getGenres } from "@/lib/seed-data"
+import { getRestaurants, getAreas, getGenres, getLunchLogs } from "@/lib/seed-data"
 import RestaurantList from "@/components/restaurant-list"
 
 export default function Home() {
   const restaurants = getRestaurants()
   const areas = getAreas()
   const genres = getGenres()
+  const logs = getLunchLogs()
 
   return (
     <main className="py-6 sm:py-10">
@@ -14,7 +15,7 @@ export default function Home() {
           新宿・歌舞伎町・大久保のランチ情報
         </p>
       </div>
-      <RestaurantList initialRestaurants={restaurants} areas={areas} genres={genres} />
+      <RestaurantList initialRestaurants={restaurants} areas={areas} genres={genres} logs={logs} />
     </main>
   )
 }
