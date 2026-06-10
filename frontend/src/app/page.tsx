@@ -1,20 +1,10 @@
-import { getRestaurants, getAreas, getGenres } from "@/lib/api"
+import { getRestaurants, getAreas, getGenres } from "@/lib/seed-data"
 import RestaurantList from "@/components/restaurant-list"
 
-export const dynamic = "force-dynamic"
-
-export default async function Home() {
-  let restaurants: Awaited<ReturnType<typeof getRestaurants>> = []
-  let areas: Awaited<ReturnType<typeof getAreas>> = []
-  let genres: Awaited<ReturnType<typeof getGenres>> = []
-
-  try {
-    [restaurants, areas, genres] = await Promise.all([
-      getRestaurants(),
-      getAreas(),
-      getGenres(),
-    ])
-  } catch {}
+export default function Home() {
+  const restaurants = getRestaurants()
+  const areas = getAreas()
+  const genres = getGenres()
 
   return (
     <main className="py-6 sm:py-10">

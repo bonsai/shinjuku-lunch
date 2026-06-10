@@ -1,4 +1,4 @@
-import { getRestaurant } from "@/lib/api"
+import { getRestaurant } from "@/lib/seed-data"
 import RestaurantDetailClient from "./client"
 import { notFound } from "next/navigation"
 
@@ -7,12 +7,8 @@ export default async function RestaurantDetailPage(props: PageProps<"/restaurant
   const numId = Number(id)
   if (isNaN(numId)) notFound()
 
-  let data
-  try {
-    data = await getRestaurant(numId)
-  } catch {
-    notFound()
-  }
+  const data = getRestaurant(numId)
+  if (!data) notFound()
 
   return <RestaurantDetailClient data={data} />
 }
