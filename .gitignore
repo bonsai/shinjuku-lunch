@@ -7,3 +7,5 @@ node_modules/
 .next/
 frontend/out/
 tmp/
+*.db-shm
+*.db-wal

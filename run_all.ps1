@@ -10,7 +10,7 @@ $FrontendDir = Join-Path $RootDir "frontend"
 
 $env:PORT = "8080"
 $env:FRONTEND_PORT = "3000"
-if (-not $env:DATABASE_URL) { $env:DATABASE_URL = "postgres://postgres:postgres@localhost:5432/shinjuku_lunch?sslmode=disable" }
+if (-not $env:DATABASE_URL) { $env:DATABASE_URL = "sqlite://./shinjuku_lunch.db" }
 
 # --- kill leftover process on ports ---
 $ports = @($env:PORT, $env:FRONTEND_PORT)
