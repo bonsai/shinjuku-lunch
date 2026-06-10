@@ -1,0 +1,2 @@
+[      20ms] [INFO] Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113 @ https://tech-creator-hub.hatenablog.com/entry/claude-code-cli-complete-guide-2025#%E6%8E%A8%E5%A5%A8%E8%A8%AD%E5%AE%9A%E9%96%8B%E7%99%BA%E5%8A%B9%E7%8E%87%E3%82%92%E6%9C%80%E5%A4%A7%E5%8C%96:1467
+[     355ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/fontawesome.min.css:0

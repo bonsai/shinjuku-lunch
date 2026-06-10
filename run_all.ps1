@@ -17,10 +17,10 @@ $ports = @($env:PORT, $env:FRONTEND_PORT)
 foreach ($p in $ports) {
   $old = netstat -ano | Select-String "LISTENING" | Select-String ":$($p)\s"
   if ($old) {
-    $pid = ($old -split '\s+')[-1]
-    if ($pid -and $pid -match '^\d+$') {
-      Write-Host "Port $p in use by PID $pid — killing..." -ForegroundColor Yellow
-      Stop-Process -Id $pid -Force -ErrorAction SilentlyContinue
+    $procId = ($old -split '\s+')[-1]
+    if ($procId -and $procId -match '^\d+$') {
+      Write-Host "Port $p in use by PID $procId — killing..."
+      Stop-Process -Id $procId -Force -ErrorAction SilentlyContinue
       Start-Sleep 1
     }
   }

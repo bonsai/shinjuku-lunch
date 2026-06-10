@@ -1,0 +1,4 @@
+[      18ms] Uncaught ReferenceError: _G is not defined
+    at <anonymous> (:0:0)
+[    1648ms] [INFO] Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113 @ https://tech-creator-hub.hatenablog.com/entry/claude-code-cli-complete-guide-2025:1467
+[    2062ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/fontawesome.min.css:0
